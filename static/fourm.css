@@ -366,3 +366,154 @@ hr.line {
         width: 100%;
     }
 }
+
+/* Split Screen Layout */
+.split-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    min-height: calc(100vh - 100px);
+    align-items: start;
+}
+
+.form-section {
+    max-width: 600px;
+}
+
+.results-section {
+    position: sticky;
+    top: 2rem;
+    max-width: 600px;
+}
+
+/* Results Styling */
+.result-card {
+    background: rgba(10, 26, 26, 0.5);
+    border: 1px solid #4a8080;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 6px 18px rgba(10, 26, 26, 0.6);
+}
+
+.risk-score-display {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.score-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 8px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.score-number {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.score-total {
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+.risk-level {
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.high-risk { 
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+.moderate-risk { 
+    color: #ffa500;
+    border-color: #ffa500;
+}
+
+.low-risk { 
+    color: #51cf66;
+    border-color: #51cf66;
+}
+
+.recommendation-box {
+    background: rgba(74, 128, 128, 0.2);
+    border: 1px solid #4a8080;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.recommendation-box h3 {
+    margin-bottom: 0.8rem;
+    color: #a0c4c4;
+}
+
+.recommendation-box p {
+    line-height: 1.6;
+}
+
+/* Placeholder when no results */
+.placeholder-results {
+    background: rgba(10, 26, 26, 0.3);
+    border: 2px dashed #4a8080;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: #8a9a9a;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.placeholder-results h2 {
+    color: #a0c4c4;
+    margin-bottom: 0.5rem;
+}
+
+/* Action buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    border: 2px solid #4a8080;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background: rgba(74, 128, 128, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .split-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .results-section {
+        position: relative;
+        top: 0;
+    }
+}
+

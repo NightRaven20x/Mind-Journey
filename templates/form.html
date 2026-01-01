@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/static/images/1.jpg">
-    <title>Survey - MindJourney</title>
+    <title>Mental Health Assessment - MindJourney</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
-    <link rel="stylesheet" href="/static/fourm.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fourm.css') }}">
 </head>
 
 <body>
@@ -37,16 +37,18 @@
 
         <hr class="line">
 
-        <!-- Mid Section -->
-        <section class="midsection">
-            <div class="midcontent">
-                <h1>Quick Mental Health Survey</h1>
+        <!-- Split Screen Section -->
+        <section class="split-container">
+            
+            <!-- Left Side: Form -->
+            <div class="form-section">
+                <h1>Mental Health Assessment</h1>
 
                 <div class="form-card">
-                    <form>
-                        <!-- Gender -->
+                    <form method="POST" action="/predict">
+                        
                         <div class="form-row">
-                            <label for="gender">What is your gender?</label>
+                            <label for="gender">Gender</label>
                             <select name="gender" id="gender" required>
                                 <option value="">-- Select --</option>
                                 <option value="Male">Male</option>
@@ -54,15 +56,13 @@
                             </select>
                         </div>
 
-                        <!-- Age -->
                         <div class="form-row">
-                            <label for="age">How old are you?</label>
+                            <label for="age">Age</label>
                             <input type="number" name="age" id="age" min="17" max="100" required>
                         </div>
 
-                        <!-- Year of Study -->
                         <div class="form-row">
-                            <label for="year">What is your current year of study?</label>
+                            <label for="year">Year of Study</label>
                             <select name="year" id="year" required>
                                 <option value="">-- Select --</option>
                                 <option value="1">Year 1</option>
@@ -72,9 +72,8 @@
                             </select>
                         </div>
 
-                        <!-- CGPA -->
                         <div class="form-row">
-                            <label for="cgpa">What is your CGPA range?</label>
+                            <label for="cgpa">CGPA Range</label>
                             <select name="cgpa" id="cgpa" required>
                                 <option value="">-- Select --</option>
                                 <option value="2.50-2.99">2.50 – 2.99</option>
@@ -83,9 +82,8 @@
                             </select>
                         </div>
 
-                        <!-- Marital Status -->
                         <div class="form-row">
-                            <label for="marital">What is your marital status?</label>
+                            <label for="marital">Marital Status</label>
                             <select name="marital" id="marital" required>
                                 <option value="">-- Select --</option>
                                 <option value="Single">Single</option>
@@ -93,7 +91,6 @@
                             </select>
                         </div>
 
-                        <!-- Anxiety -->
                         <div class="form-row">
                             <label for="anxiety">Do you experience anxiety?</label>
                             <select name="anxiety" id="anxiety" required>
@@ -103,9 +100,8 @@
                             </select>
                         </div>
 
-                        <!-- Panic Attack -->
                         <div class="form-row">
-                            <label for="panic">Have you ever had a panic attack?</label>
+                            <label for="panic">Have you had panic attacks?</label>
                             <select name="panic" id="panic" required>
                                 <option value="">-- Select --</option>
                                 <option value="Yes">Yes</option>
@@ -113,18 +109,53 @@
                             </select>
                         </div>
 
-                        <!-- Submit Button -->
                         <div class="form-actions">
                             <button type="submit" class="find-yourself-btn">Predict</button>
                         </div>
                     </form>
-
-                    <div class="note">
-                        This tool is for educational purposes only and does not replace professional medical advice.
-                    </div>
                 </div>
 
+                <div class="note">
+                    This tool is for educational purposes only and does not replace professional medical advice.
+                </div>
             </div>
+
+            <!-- Right Side: Results -->
+            <div class="results-section">
+                <h1>Deppression Assessment</h1>
+                {% if result %}
+                    <h1>Your Results</h1>
+                    
+                    <div class="result-card">
+                        <div class="risk-score-display">
+                            <div class="score-circle {{ result.color }}-risk">
+                                <span class="score-number">{{ result.risk_score }}</span>
+                                <span class="score-total">/100</span>
+                            </div>
+                        </div>
+
+                        <div class="risk-level {{ result.color }}-risk">
+                            {{ result.risk_level }}
+                        </div>
+
+                        <div class="recommendation-box">
+                            <h3>📋 Recommendation</h3>
+                            <p>{{ result.recommendation }}</p>
+                        </div>
+
+                        <div class="action-buttons">
+                            <a href="/form" class="btn-secondary">Assess Again</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="placeholder-results">
+                        <div class="placeholder-icon">👍</div>
+                        <h2>Your Results Will Appear Here</h2>
+                        <p>Fill out the form and click "Predict" to see your mental health assessment results.</p>
+                    </div>
+                {% endif %}
+            </div>
+
         </section>
 
     </div>
