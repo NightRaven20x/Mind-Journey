@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/1.jpg">
+    <title>Sign Up - MindJourney</title>
+
+    <link rel="stylesheet" href="/static/fourm.css">
+</head>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message flash-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<body>
+
+
+    <div class=bigbox>
+
+        <!-- Navigation -->
+        <nav>
+            <div class=logobox>
+                <div class="logo-icon">🧠</div>
+                <div class="logo-text"><a href="/">Mind<span>Journey</span></a></div>
+            </div>
+            <div class="nav-links">
+                <a href="https://www.mentalhealth.org.uk/explore-mental-health/articles" target="_blank">Mental
+                    Health</a>
+                <a href="https://info.totalwellnesshealth.com/blog/the-10-wellness-articles-you-loved-most-in-2025-totalwellness"
+                    target="_blank">Health & Wellness</a>
+                <a href="https://www.livewellmagazine.org/the-bold-new-rules-of-parenting-family-for-2025/"
+                    target="_blank">Children & Family</a>
+                <a href="https://bumble.com/en-us/the-buzz/bumble-dating-trends-2025" target="_blank">Relationships</a>
+            </div>
+
+            <div class="nav-actions">
+                <div class="registration">
+                    <a href="/signup">Sign up</a>
+                    <a href="/login">Log in</a>
+                </div>
+
+                <a href="https://www.betterhelp.com/" target="_blank" class="find-help-btn">
+                    Find Help
+                </a>
+            </div>
+
+
+
+        </nav>
+
+        <hr class="line">
+
+        <!-- mid section -->
+        <section class="midsection">
+            <div class="midcontent">
+                <h1>Create Your Account</h1>
+
+                <div class="form-card">
+                    <form>
+                        <!-- Username input -->
+                        <div class="form-row">
+
+                            <label for="Email">Email</label>
+                            <input type="email" name="Email" id="Email" required>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <label for="Password">Password</label>
+                            <input type="password" name="Password" id="Password" required>
+
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="find-yourself-btn">submit</button>
+
+                        </div>
+
+                    </form>
+
+                    <p class="note">Dont have an account? <a href="/signup">Creat an account.</a></p>
+
+
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</body>
+
+</html>

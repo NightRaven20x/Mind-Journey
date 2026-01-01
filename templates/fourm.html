@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/static/images/1.jpg">
+    <title>Survey - MindJourney</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="/static/fourm.css">
+</head>
+
+<body>
+    <div class="bigbox">
+
+        <!-- Navigation -->
+        <nav>
+            <div class="logobox">
+                <div class="logo-icon">🧠</div>
+                <div class="logo-text"><a href="/">Mind<span>Journey</span></a></div>
+            </div>
+            <div class="nav-links">
+                <a href="https://www.mentalhealth.org.uk/explore-mental-health/articles" target="_blank">Mental Health</a>
+                <a href="https://info.totalwellnesshealth.com/blog/the-10-wellness-articles-you-loved-most-in-2025-totalwellness" target="_blank">Health & Wellness</a>
+                <a href="https://www.livewellmagazine.org/the-bold-new-rules-of-parenting-family-for-2025/" target="_blank">Children & Family</a>
+                <a href="https://bumble.com/en-us/the-buzz/bumble-dating-trends-2025" target="_blank">Relationships</a>
+            </div>
+
+            <div class="nav-actions">
+                <div class="registration">
+                    <a href="/signup">Sign up</a>
+                    <a href="/login">Log in</a>
+                </div>
+                <a href="https://www.betterhelp.com/" target="_blank" class="find-help-btn">Find Help</a>
+            </div>
+        </nav>
+
+        <hr class="line">
+
+        <!-- Mid Section -->
+        <section class="midsection">
+            <div class="midcontent">
+                <h1>Quick Mental Health Survey</h1>
+
+                <div class="form-card">
+                    <form>
+                        <!-- Gender -->
+                        <div class="form-row">
+                            <label for="gender">What is your gender?</label>
+                            <select name="gender" id="gender" required>
+                                <option value="">-- Select --</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <!-- Age -->
+                        <div class="form-row">
+                            <label for="age">How old are you?</label>
+                            <input type="number" name="age" id="age" min="17" max="100" required>
+                        </div>
+
+                        <!-- Year of Study -->
+                        <div class="form-row">
+                            <label for="year">What is your current year of study?</label>
+                            <select name="year" id="year" required>
+                                <option value="">-- Select --</option>
+                                <option value="1">Year 1</option>
+                                <option value="2">Year 2</option>
+                                <option value="3">Year 3</option>
+                                <option value="4">Year 4</option>
+                            </select>
+                        </div>
+
+                        <!-- CGPA -->
+                        <div class="form-row">
+                            <label for="cgpa">What is your CGPA range?</label>
+                            <select name="cgpa" id="cgpa" required>
+                                <option value="">-- Select --</option>
+                                <option value="2.50-2.99">2.50 – 2.99</option>
+                                <option value="3.00-3.49">3.00 – 3.49</option>
+                                <option value="3.50-4.00">3.50 – 4.00</option>
+                            </select>
+                        </div>
+
+                        <!-- Marital Status -->
+                        <div class="form-row">
+                            <label for="marital">What is your marital status?</label>
+                            <select name="marital" id="marital" required>
+                                <option value="">-- Select --</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                            </select>
+                        </div>
+
+                        <!-- Anxiety -->
+                        <div class="form-row">
+                            <label for="anxiety">Do you experience anxiety?</label>
+                            <select name="anxiety" id="anxiety" required>
+                                <option value="">-- Select --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <!-- Panic Attack -->
+                        <div class="form-row">
+                            <label for="panic">Have you ever had a panic attack?</label>
+                            <select name="panic" id="panic" required>
+                                <option value="">-- Select --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="find-yourself-btn">Predict</button>
+                        </div>
+                    </form>
+
+                    <div class="note">
+                        This tool is for educational purposes only and does not replace professional medical advice.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+</body>
+
+</html>

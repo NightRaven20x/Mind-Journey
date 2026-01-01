@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/fourm.css">
+    <title>Sign Up - MindJourney</title>
+
+    <link rel="stylesheet" href="fourm.css">
+</head>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="flash-message flash-{{ category }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<body>
+
+    <div class=bigbox>
+
+        <!-- Navigation -->
+        <nav>
+            <div class=logobox>
+                <div class="logo-icon">🧠</div>
+                <div class="logo-text"><a href="/">Mind<span>Journey</span></a></div>
+            </div>
+            <div class="nav-links">
+                <a href="https://www.mentalhealth.org.uk/explore-mental-health/articles" target="_blank">Mental
+                    Health</a>
+                <a href="https://info.totalwellnesshealth.com/blog/the-10-wellness-articles-you-loved-most-in-2025-totalwellness"
+                    target="_blank">Health & Wellness</a>
+                <a href="https://www.livewellmagazine.org/the-bold-new-rules-of-parenting-family-for-2025/"
+                    target="_blank">Children & Family</a>
+                <a href="https://bumble.com/en-us/the-buzz/bumble-dating-trends-2025" target="_blank">Relationships</a>
+            </div>
+
+            <div class="nav-actions">
+                <div class="registration">
+                    <a href="/signup">Sign up</a>
+                    <a href="/login">Log in</a>
+                </div>
+
+                <a href="https://www.betterhelp.com/" target="_blank" class="find-help-btn">
+                    Find Help
+                </a>
+            </div>
+
+
+
+        </nav>
+
+        <hr class="line">
+
+        <!-- mid section -->
+        <section class="midsection">
+            <div class="midcontent">
+                <h1>Create Your Account</h1>
+
+                <div class="form-card">
+                    <form method="POST" action="/signup">
+                        <!-- Username -->
+                        <div class="form-row">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" value="{{ username if username else '' }}"
+                                required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-row">
+                            <label for="email">Email</label>
+                            <input type="email" name="Email" id="email" value="{{ email if email else '' }}" required>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-row">
+                            <label for="password">Password</label>
+                            <input type="password" name="Password" id="password"
+                                value="{{ password if password else '' }}"
+                                class="{% if password_error %}input-error{% endif %}" required>
+
+                            <!-- Show error message if password is weak -->
+                            {% if password_error %}
+                            <div class="field-error">
+                                <span class="error-icon">⚠</span>
+                                <div class="error-content">
+                                    <strong>Password too weak (Score: {{ score }}/5)</strong>
+                                    <ul class="error-list">
+                                        {% for item in feedback %}
+                                        <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="form-row">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" name="Confirm-Password" id="confirm-password" required>
+                        </div>
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="find-yourself-btn">Sign Up</button>
+
+                        </div>
+
+                    </form>
+
+                    <p class="note">Already have an account? <a href="/login">Log in here</a></p>
+
+
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</body>
+
+</html>
