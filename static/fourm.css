@@ -505,6 +505,33 @@ hr.line {
     transform: translateY(-2px);
 }
 
+/* Admin */
+.nav-admin {
+    display: flex;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-right: 1rem;
+    transition: color 0.3s, background 0.3s, transform 0.3s;
+    align-items: center;
+    padding: 8px 15px;
+    border: 2px solid #6b8e8e;
+    border-radius: 25px;
+}
+
+.nav-admin:hover{
+    background: rgba(74, 128, 128, 0.3);
+    transform: translateY(-2px);
+}
+
+.nav-admin a{
+    text-decoration: none;
+    color: #6b8e8e;
+}
+
+.nav-admin:hover a {
+    color: #ffffff;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .split-container {

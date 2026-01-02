@@ -1,0 +1,102 @@
+/* Admin page layout */
+.admin-section {
+    display: block;
+    padding: 2rem 3rem;
+}
+
+.admin-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.admin-stats {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+/* User cards */
+.admin-user-card {
+    margin-bottom: 1.5rem;
+}
+
+.admin-user-card h2 {
+    margin-bottom: 1rem;
+}
+
+/* Text styles */
+.admin-text {
+    color: #e0e0e0;
+}
+
+.admin-mono {
+    font-family: monospace;
+    color: #e0e0e0;
+}
+
+/* Empty state */
+.admin-empty {
+    text-align: center;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.admin-summary {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+/* Cards */
+.admin-card {
+    margin-bottom: 1.5rem;
+}
+
+.reveal-card {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.username-title {
+    margin-bottom: 1rem;
+}
+
+/* Text helpers */
+.text-light {
+    color: #e0e0e0;
+}
+
+.text-muted {
+    color: #6b8e8e;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.mono {
+    font-family: monospace;
+}
+
+/* Password highlight */
+.password-revealed {
+    color: #ff6b6b;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* Divider */
+.divider {
+    border-color: #4a8080;
+    margin: 1.5rem 0;
+}
+
+/* Actions */
+.center-actions {
+    justify-content: center;
+    margin-top: 2rem;
+}
+

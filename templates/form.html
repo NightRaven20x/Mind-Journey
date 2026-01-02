@@ -37,6 +37,18 @@
 
         <hr class="line">
 
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div style="padding: 1rem 3rem;">
+                        {% for category, message in messages %}
+                            <div class="flash-message flash-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+            {% endif %}
+        {% endwith %}
+
         <!-- Split Screen Section -->
         <section class="split-container">
             

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Revealed - MindJourney</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fourm.css') }}">
+</head>
+
+<body>
+    <div class="bigbox">
+
+        <nav>
+            <div class="logobox">
+                <div class="logo-icon">🧠</div>
+                <div class="logo-text"><a href="/">Mind<span>Journey</span></a></div>
+            </div>
+            <div class="nav-admin" >
+                <a href="/admin">Back to Admin</a>
+            </div>
+        </nav>
+
+        <hr class="line">
+
+        <section class="midsection" style="display: block; padding: 2rem 3rem;">
+            <h1 style="text-align: center; margin-bottom: 2rem;">🔓 Password Revealed</h1>
+
+            <div class="form-card" style="max-width: 600px; margin: 0 auto;">
+                <h2 style="margin-bottom: 1.5rem; text-align: center;">{{ user.username }}</h2>
+                
+                <div class="form-row">
+                    <label>Email:</label>
+                    <p style="color: #e0e0e0;">{{ user.email }}</p>
+                </div>
+
+                <hr style="border-color: #4a8080; margin: 1.5rem 0;">
+
+                <div class="form-row">
+                    <label>Encrypted Password:</label>
+                    <p style="color: #6b8e8e; font-family: monospace;">{{ user.encrypted_password }}</p>
+                </div>
+
+                <div class="form-row">
+                    <label>Decrypted Password:</label>
+                    <p style="color: #ff6b6b; font-size: 1.3rem; font-weight: bold; font-family: monospace;">
+                        {{ user.decrypted_password }}
+                    </p>
+                </div>
+
+                <div class="form-actions" style="justify-content: center; margin-top: 2rem;">
+                    <a href="/admin" class="find-yourself-btn">← Back to Admin</a>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</body>
+
+</html>

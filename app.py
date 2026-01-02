@@ -26,6 +26,30 @@ def encrypt_password(password):
     except Exception as e:
         print(f"Encryption error: {e}")
         return None
+    
+def decrypt_password(encrypted_password):
+    """
+    Calls the C program to decrypt password
+    """
+    try:
+        # Run the decrypt C program
+        process = subprocess.Popen(
+            ['decrypt.exe'],  # On Mac/Linux use './decrypt'
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        
+        # Send encrypted password to C program
+        output, error = process.communicate(input=encrypted_password.encode())
+        
+        # Get decrypted password
+        decrypted = output.decode().strip()
+        
+        return decrypted
+    except Exception as e:
+        print(f"Decryption error: {e}")
+        return None
 
 app = Flask(__name__)
 app.secret_key = '12345' 
@@ -129,44 +153,44 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def login_post():
-    # Get data from form
     email = request.form.get('Email')
     password = request.form.get('Password')
     
-    # Check if users.txt exists
     if not os.path.exists('users.txt'):
         flash("No users registered yet!", "error")
         return redirect('/login')
     
-    # Search for user in users.txt
     user_found = False
     with open('users.txt', 'r') as f:
         for line in f:
+            # Skip empty lines
+            if not line.strip():
+                continue
             
-            # Split line: username,email,encrypted_password
+            # Split line and check if it has 3 parts
             parts = line.strip().split(',')
+            
+            # Add this check!
+            if len(parts) != 3:
+                print(f"Warning: Malformed line in users.txt: {line}")
+                continue
+            
             stored_username = parts[0]
             stored_email = parts[1]
             stored_encrypted_password = parts[2]
             
-            # Check if email matches
             if stored_email == email:
                 user_found = True
                 
-                # Encrypt entered password
                 encrypted_entered_password = encrypt_password(password)
                 
-                # Compare encrypted passwords
                 if encrypted_entered_password == stored_encrypted_password:
-                    # Passwords match!
                     flash(f"Welcome back, {stored_username}!", "success")
-                    return redirect('/form')  # Redirect to survey form
+                    return redirect('/form')
                 else:
-                    # Wrong password
                     flash("Incorrect password!", "error")
                     return redirect('/login')
     
-    # Email not found
     if not user_found:
         flash("Email not found. Please sign up first!", "error")
         return redirect('/login')
@@ -242,6 +266,64 @@ def predict():
     
     # Render SAME PAGE with results
     return render_template('form.html', result=result)
+
+@app.route('/admin')
+def admin():
+    # Read all users
+    users = []
+    
+    if os.path.exists('users.txt'):
+        with open('users.txt', 'r') as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                
+                parts = line.strip().split(',')
+                if len(parts) == 3:
+                    users.append({
+                        'username': parts[0],
+                        'email': parts[1],
+                        'encrypted_password': parts[2]
+                    })
+    
+    return render_template('admin.html', users=users)
+
+@app.route('/admin/reveal/<int:user_index>')
+def reveal_password(user_index):
+    # Read all users again
+    users = []
+    
+    if os.path.exists('users.txt'):
+        with open('users.txt', 'r') as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                
+                parts = line.strip().split(',')
+                if len(parts) == 3:
+                    users.append({
+                        'username': parts[0],
+                        'email': parts[1],
+                        'encrypted_password': parts[2]
+                    })
+    
+    # Get the specific user
+    if user_index < len(users):
+        user = users[user_index]
+        
+        # Decrypt their password
+        decrypted = decrypt_password(user['encrypted_password'])
+        user['decrypted_password'] = decrypted
+        
+        return render_template('reveal.html', user=user)
+    else:
+        return "User not found", 404
+
+@app.route('/test-decrypt')
+def test_decrypt():
+    encrypted = "Khoor123"
+    decrypted = decrypt_password(encrypted)
+    return f"Encrypted: {encrypted}<br>Decrypted: {decrypted}"
 
 @app.route('/test')
 def test():
