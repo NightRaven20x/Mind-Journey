@@ -1,6 +1,8 @@
 from flask import Flask, render_template , request, jsonify , flash, redirect
 import os
-
+import pandas as pd
+import pickle
+import numpy as np
 import subprocess
 
 def encrypt_password(password):
@@ -53,6 +55,21 @@ def decrypt_password(encrypted_password):
 
 app = Flask(__name__)
 app.secret_key = '12345' 
+
+# Load the trained model and encoders
+def load_model():
+    """Load the trained ML model and label encoders"""
+    with open('mental_health_model.pkl', 'rb') as f:
+        model = pickle.load(f)
+    
+    with open('label_encoders.pkl', 'rb') as f:
+        label_encoders = pickle.load(f)
+    
+    return model, label_encoders
+
+# Load model once when app starts
+model, label_encoders = load_model()
+print("✅ ML Model loaded successfully!")
 
 #password checker function
 def check_password_strength(password):
@@ -205,66 +222,82 @@ def form():
 @app.route('/predict', methods=['POST'])
 def predict():
     # Get all form data
+    age = int(request.form.get('age'))
     gender = request.form.get('gender')
-    age = request.form.get('age')
-    year = request.form.get('year')
-    cgpa = request.form.get('cgpa')
-    marital = request.form.get('marital')
-    anxiety = request.form.get('anxiety')
-    panic = request.form.get('panic')
+    employment_status = request.form.get('employment_status')
+    work_environment = request.form.get('work_environment')
+    mental_health_history = request.form.get('mental_health_history')
+    seeks_treatment = request.form.get('seeks_treatment')
+    stress_level = int(request.form.get('stress_level'))
+    sleep_hours = float(request.form.get('sleep_hours'))
+    physical_activity_days = int(request.form.get('physical_activity_days'))
+    depression_score = int(request.form.get('depression_score'))
+    anxiety_score = int(request.form.get('anxiety_score'))
+    social_support_score = int(request.form.get('social_support_score'))
+    productivity_score = float(request.form.get('productivity_score'))
     
-    # Simple rule-based prediction (we'll replace with ML soon!)
-    risk_score = 0
+    # Encode categorical variables
+    gender_encoded = label_encoders['gender'].transform([gender])[0]
+    employment_encoded = label_encoders['employment_status'].transform([employment_status])[0]
+    work_environment_encoded = label_encoders['work_environment'].transform([work_environment])[0]
+    mental_health_history_encoded = label_encoders['mental_health_history'].transform([mental_health_history])[0]
+    seeks_treatment_encoded = label_encoders['seeks_treatment'].transform([seeks_treatment])[0]
     
-    age_num = int(age)
-    if age_num < 20:
-        risk_score += 15
-    elif age_num < 25:
-        risk_score += 10
-    else:
-        risk_score += 5
+    # Create feature array in the same order as training
+    features = np.array([[
+        age,
+        gender_encoded,
+        employment_encoded,
+        work_environment_encoded,
+        mental_health_history_encoded,
+        seeks_treatment_encoded,
+        stress_level,
+        sleep_hours,
+        physical_activity_days,
+        depression_score,
+        anxiety_score,
+        social_support_score,
+        productivity_score
+    ]])
     
-    year_num = int(year)
-    if year_num >= 3:
-        risk_score += 20
-    else:
-        risk_score += 10
+    # Make prediction
+    prediction = model.predict(features)[0]
+    probabilities = model.predict_proba(features)[0]
     
-    if cgpa == "2.50-2.99":
-        risk_score += 25
-    elif cgpa == "3.00-3.49":
-        risk_score += 15
-    else:
-        risk_score += 5
+    # Decode prediction
+    risk_level = label_encoders['mental_health_risk'].inverse_transform([prediction])[0]
     
-    if anxiety == "Yes":
-        risk_score += 30
+    # Get confidence for each class
+    risk_classes = label_encoders['mental_health_risk'].classes_
+    confidence_scores = {
+        risk_classes[i]: round(probabilities[i] * 100, 2)
+        for i in range(len(risk_classes))
+    }
     
-    if panic == "Yes":
-        risk_score += 10
+    # Get the confidence for predicted class
+    confidence = round(probabilities[prediction] * 100, 2)
     
-    # Determine risk level
-    if risk_score >= 70:
-        risk_level = "High Risk"
-        recommendation = "We strongly recommend speaking with a mental health professional."
+    # Determine color based on risk level
+    if risk_level == "High":
         color = "high"
-    elif risk_score >= 40:
-        risk_level = "Moderate Risk"
-        recommendation = "Consider talking to a counselor or trusted person about your feelings."
+        recommendation = "We strongly recommend speaking with a mental health professional. Your assessment indicates significant risk factors."
+    elif risk_level == "Medium":
         color = "moderate"
-    else:
-        risk_level = "Low Risk"
-        recommendation = "Keep maintaining healthy habits and reach out if you need support."
+        recommendation = "Consider talking to a counselor or trusted person about your feelings. Some risk factors were identified."
+    else:  # Low
         color = "low"
+        recommendation = "Keep maintaining healthy habits and reach out if you need support. Your assessment shows positive indicators."
     
+    # Create result dictionary
     result = {
-        'risk_score': risk_score,
         'risk_level': risk_level,
+        'confidence': confidence,
+        'confidence_scores': confidence_scores,
         'recommendation': recommendation,
         'color': color
     }
     
-    # Render SAME PAGE with results
+    # Render same page with results
     return render_template('form.html', result=result)
 
 @app.route('/admin')

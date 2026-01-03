@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/static/images/1.jpg">
     <title>Admin - MindJourney</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='fourm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
 </head>
 
 <body>
-    <div class="bigbox">
+    <div class="bigbox admin-page">
 
+        <!-- Navigation -->
         <nav>
             <div class="logobox">
                 <div class="logo-icon">🧠</div>
@@ -28,36 +31,41 @@
 
         <hr class="line">
 
-        <section class="midsection" style="display: block; padding: 2rem 3rem;">
-            <h1 style="text-align: center; margin-bottom: 2rem;">🔐 Admin Dashboard</h1>
+        <!-- Admin Content -->
+        <section class="midsection">
+            <div class="admin-header">
+                <h1>🔐 Admin Dashboard</h1>
+            </div>
 
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <p style="font-size: 1.2rem;">Total Users: {{ users|length }}</p>
+            <div class="admin-stats">
+                <p>Total Users: {{ users|length }}</p>
             </div>
 
             {% if users %}
                 {% for user in users %}
-                <div class="form-card" style="margin-bottom: 1.5rem;">
-                    <h2 style="margin-bottom: 1rem;">{{ user.username }}</h2>
+                <div class="form-card user-card">
+                    <h2>{{ user.username }}</h2>
                     
-                    <div class="form-row">
+                    <div class="user-info-row">
                         <label>Email:</label>
-                        <p style="color: #e0e0e0;">{{ user.email }}</p>
+                        <p>{{ user.email }}</p>
                     </div>
 
-                    <div class="form-row">
+                    <div class="user-info-row">
                         <label>Encrypted Password:</label>
-                        <p style="color: #e0e0e0; font-family: monospace;">{{ user.encrypted_password }}</p>
+                        <p class="encrypted-text">{{ user.encrypted_password }}</p>
                     </div>
 
-                    <div class="form-actions">
-                        <a href="/admin/reveal/{{ loop.index0 }}" class="find-yourself-btn">👁️ Reveal Password</a>
+                    <div class="reveal-button-container">
+                        <a href="/admin/reveal/{{ loop.index0 }}" class="find-yourself-btn">
+                            👁️ Reveal Password
+                        </a>
                     </div>
                 </div>
                 {% endfor %}
             {% else %}
-                <div class="form-card">
-                    <p style="text-align: center;">No users registered yet.</p>
+                <div class="form-card empty-state">
+                    <p>No users registered yet.</p>
                 </div>
             {% endif %}
 

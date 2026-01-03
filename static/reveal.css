@@ -1,0 +1,76 @@
+.reveal-page{
+    overflow-y: auto;
+}
+
+.reveal-page .midsection {
+    display: block;
+    padding: 2rem 3rem;
+    grid-template-columns: none;
+}
+
+.reveal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.reveal-header h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
+}
+
+.reveal-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.reveal-container h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 1.8rem;
+}
+
+.password-divider {
+    border: none;
+    height: 1px;
+    background: #4a8080;
+    margin: 1.5rem 0;
+}
+
+.password-row {
+    margin-bottom: 1.2rem;
+}
+
+.password-row label {
+    display: block;
+    color: #dfeff0;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.password-row p {
+    margin: 0;
+}
+
+.encrypted-display {
+    color: #6b8e8e;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+.decrypted-display {
+    color: #ff6b6b;
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: monospace;
+    padding: 1rem;
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: 8px;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}

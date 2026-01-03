@@ -2,27 +2,31 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/static/images/1.jpg">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/static/images/1.jpg" />
     <title>Mental Health Assessment - MindJourney</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='fourm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='fourm.css') }}" />
 </head>
 
 <body>
     <div class="bigbox">
-
         <!-- Navigation -->
         <nav>
             <div class="logobox">
                 <div class="logo-icon">🧠</div>
-                <div class="logo-text"><a href="/">Mind<span>Journey</span></a></div>
+                <div class="logo-text">
+                    <a href="/">Mind<span>Journey</span></a>
+                </div>
             </div>
             <div class="nav-links">
-                <a href="https://www.mentalhealth.org.uk/explore-mental-health/articles" target="_blank">Mental Health</a>
-                <a href="https://info.totalwellnesshealth.com/blog/the-10-wellness-articles-you-loved-most-in-2025-totalwellness" target="_blank">Health & Wellness</a>
-                <a href="https://www.livewellmagazine.org/the-bold-new-rules-of-parenting-family-for-2025/" target="_blank">Children & Family</a>
+                <a href="https://www.mentalhealth.org.uk/explore-mental-health/articles" target="_blank">Mental
+                    Health</a>
+                <a href="https://info.totalwellnesshealth.com/blog/the-10-wellness-articles-you-loved-most-in-2025-totalwellness"
+                    target="_blank">Health & Wellness</a>
+                <a href="https://www.livewellmagazine.org/the-bold-new-rules-of-parenting-family-for-2025/"
+                    target="_blank">Children & Family</a>
                 <a href="https://bumble.com/en-us/the-buzz/bumble-dating-trends-2025" target="_blank">Relationships</a>
             </div>
 
@@ -35,142 +39,216 @@
             </div>
         </nav>
 
-        <hr class="line">
+        <hr class="line" />
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div style="padding: 1rem 3rem;">
-                        {% for category, message in messages %}
-                            <div class="flash-message flash-{{ category }}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    </div>
-            {% endif %}
-        {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %}
+        <div style="padding: 1rem 3rem">
+            {% for category, message in messages %}
+            <div class="flash-message flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %} {% endwith %}
 
         <!-- Split Screen Section -->
         <section class="split-container">
-            
             <!-- Left Side: Form -->
             <div class="form-section">
                 <h1>Mental Health Assessment</h1>
 
                 <div class="form-card">
                     <form method="POST" action="/predict">
-                        
+                        <!-- Age -->
+                        <div class="form-row">
+                            <label for="age">Age</label>
+                            <input type="number" name="age" id="age" min="18" max="100" required />
+                        </div>
+
+                        <!-- Gender -->
                         <div class="form-row">
                             <label for="gender">Gender</label>
                             <select name="gender" id="gender" required>
                                 <option value="">-- Select --</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
+                                <option value="Non-binary">Non-binary</option>
                             </select>
                         </div>
 
+                        <!-- Employment Status -->
                         <div class="form-row">
-                            <label for="age">Age</label>
-                            <input type="number" name="age" id="age" min="17" max="100" required>
-                        </div>
-
-                        <div class="form-row">
-                            <label for="year">Year of Study</label>
-                            <select name="year" id="year" required>
+                            <label for="employment_status">Employment Status</label>
+                            <select name="employment_status" id="employment_status" required>
                                 <option value="">-- Select --</option>
-                                <option value="1">Year 1</option>
-                                <option value="2">Year 2</option>
-                                <option value="3">Year 3</option>
-                                <option value="4">Year 4</option>
+                                <option value="Student">Student</option>
+                                <option value="Employed">Employed</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Self-employed">Self-employed</option>
                             </select>
                         </div>
 
+                        <!-- Work Environment -->
                         <div class="form-row">
-                            <label for="cgpa">CGPA Range</label>
-                            <select name="cgpa" id="cgpa" required>
+                            <label for="work_environment">Work/Study Environment</label>
+                            <select name="work_environment" id="work_environment" required>
                                 <option value="">-- Select --</option>
-                                <option value="2.50-2.99">2.50 – 2.99</option>
-                                <option value="3.00-3.49">3.00 – 3.49</option>
-                                <option value="3.50-4.00">3.50 – 4.00</option>
+                                <option value="On-site">On-site</option>
+                                <option value="Remote">Remote</option>
+                                <option value="Hybrid">Hybrid</option>
                             </select>
                         </div>
 
+                        <!-- Mental Health History -->
                         <div class="form-row">
-                            <label for="marital">Marital Status</label>
-                            <select name="marital" id="marital" required>
-                                <option value="">-- Select --</option>
-                                <option value="Single">Single</option>
-                                <option value="Married">Married</option>
-                            </select>
-                        </div>
-
-                        <div class="form-row">
-                            <label for="anxiety">Do you experience anxiety?</label>
-                            <select name="anxiety" id="anxiety" required>
+                            <label for="mental_health_history">Do you have a history of mental health issues?</label>
+                            <select name="mental_health_history" id="mental_health_history" required>
                                 <option value="">-- Select --</option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
                         </div>
 
+                        <!-- Seeks Treatment -->
                         <div class="form-row">
-                            <label for="panic">Have you had panic attacks?</label>
-                            <select name="panic" id="panic" required>
+                            <label for="seeks_treatment">Have you sought mental health treatment?</label>
+                            <select name="seeks_treatment" id="seeks_treatment" required>
                                 <option value="">-- Select --</option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
                         </div>
 
+                        <!-- Stress Level -->
+                        <div class="form-row">
+                            <label for="stress_level">Stress Level (1-10)</label>
+                            <input type="number" name="stress_level" id="stress_level" min="1" max="10" required />
+                        </div>
+
+                        <!-- Sleep Hours -->
+                        <div class="form-row">
+                            <label for="sleep_hours">Average Sleep Hours per Night</label>
+                            <input type="number" name="sleep_hours" id="sleep_hours" min="0" max="24" step="0.5"
+                                required />
+                        </div>
+
+                        <!-- Physical Activity Days -->
+                        <div class="form-row">
+                            <label for="physical_activity_days">Physical Activity Days per Week</label>
+                            <input type="number" name="physical_activity_days" id="physical_activity_days" min="0"
+                                max="7" required />
+                        </div>
+
+                        <!-- Depression Score -->
+                        <div class="form-row">
+                            <label for="depression_score">Depression Score (0-30)</label>
+                            <small style="color: #8a9a9a; font-size: 0.85rem">Rate symptoms: 0=none, 30=severe</small>
+
+                            <input type="number" name="depression_score" id="depression_score" min="0" max="30"
+                                required />
+                        </div>
+
+                        <!-- Anxiety Score -->
+                        <div class="form-row">
+                            <label for="anxiety_score">Anxiety Score (0-30)</label>
+                            <small style="color: #8a9a9a; font-size: 0.85rem">Rate symptoms: 0=none, 30=severe</small>
+
+                            <input type="number" name="anxiety_score" id="anxiety_score" min="0" max="30" required />
+                        </div>
+
+                        <!-- Social Support Score -->
+                        <div class="form-row">
+                            <label for="social_support_score">Social Support Score (0-100)</label>
+                            <small style="color: #8a9a9a; font-size: 0.85rem">Rate your support system: 0=none,
+                                100=excellent</small>
+                            <input type="number" name="social_support_score" id="social_support_score" min="0" max="100"
+                                required />
+                        </div>
+
+                        <!-- Productivity Score -->
+                        <div class="form-row">
+                            <label for="productivity_score">Productivity Score (0-100)</label>
+                            <small style="color: #8a9a9a; font-size: 0.85rem">Rate your productivity: 0=very low,
+                                100=very high</small>
+                            <input type="number" name="productivity_score" id="productivity_score" min="0" max="100"
+                                step="0.1" required />
+                        </div>
+
+                        <!-- Submit Button -->
                         <div class="form-actions">
-                            <button type="submit" class="find-yourself-btn">Predict</button>
+                            <button type="submit" class="find-yourself-btn">
+                                Predict Risk
+                            </button>
                         </div>
                     </form>
                 </div>
 
                 <div class="note">
-                    This tool is for educational purposes only and does not replace professional medical advice.
+                    This tool is for educational purposes only and does not replace
+                    professional medical advice.
                 </div>
             </div>
 
             <!-- Right Side: Results -->
             <div class="results-section">
-                <h1>Deppression Assessment</h1>
+                <h1 style="margin-left: 2.5rem;">Mental Health Risk Assessment</h1>
                 {% if result %}
-                    <h1>Your Results</h1>
-                    
-                    <div class="result-card">
-                        <div class="risk-score-display">
-                            <div class="score-circle {{ result.color }}-risk">
-                                <span class="score-number">{{ result.risk_score }}</span>
-                                <span class="score-total">/100</span>
+                <h2 style="text-align: center; margin-bottom: 1rem;">Your Results</h2>
+
+                <div class="result-card">
+                    <!-- Main Risk Display -->
+                    <div class="risk-score-display">
+                        <div class="score-circle {{ result.color }}-risk">
+                            <span class="score-number">{{ result.confidence|round|int }}%</span>
+                            <span class="score-total">Confidence</span>
+                        </div>
+                    </div>
+
+                    <div class="risk-level {{ result.color }}-risk">
+                        {{ result.risk_level }} Risk
+                    </div>
+
+                    <!-- Confidence Breakdown -->
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3 style="margin-bottom: 0.8rem; color: #a0c4c4; font-size: 1rem;">Probability Breakdown:</h3>
+                        {% for risk, prob in result.confidence_scores.items() %}
+                        <div style="margin-bottom: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                                <span style="color: #dfeff0;">{{ risk }}:</span>
+                                <span style="color: #e0e0e0; font-weight: bold;">{{ prob }}%</span>
+                            </div>
+                            <div class="probability-bar-container">
+                                <div class="probability-bar probability-bar-{{ risk|lower }}"
+                                    style="width: {{ prob }}%;"></div>
                             </div>
                         </div>
-
-                        <div class="risk-level {{ result.color }}-risk">
-                            {{ result.risk_level }}
-                        </div>
-
-                        <div class="recommendation-box">
-                            <h3>📋 Recommendation</h3>
-                            <p>{{ result.recommendation }}</p>
-                        </div>
-
-                        <div class="action-buttons">
-                            <a href="/form" class="btn-secondary">Assess Again</a>
-                        </div>
+                        {% endfor %}
                     </div>
+
+                    <!-- Recommendation -->
+                    <div class="recommendation-box">
+                        <h3>📋 Recommendation</h3>
+                        <p>{{ result.recommendation }}</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="/form" class="btn-secondary">Assess Again</a>
+                    </div>
+                </div>
                 {% else %}
-                    <div class="placeholder-results">
-                        <div class="placeholder-icon">👍</div>
-                        <h2>Your Results Will Appear Here</h2>
-                        <p>Fill out the form and click "Predict" to see your mental health assessment results.</p>
-                    </div>
+                <div class="placeholder-results">
+                    <div class="placeholder-icon">👍</div>
+                    <h2>Logistic Regression Model</h2>
+                    <p style="color: #dfeff0;">Fill out the form and Luna will analyze your responses to predict mental
+                        health risk with 98% accuracy.</p>
+                </div>
                 {% endif %}
             </div>
 
         </section>
 
     </div>
+
 </body>
 
 </html>

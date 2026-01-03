@@ -1,102 +1,97 @@
-/* Admin page layout */
-.admin-section {
-    display: block;
-    padding: 2rem 3rem;
+.admin-page{
+    overflow-y: auto;
+}
+/* Width */
+::-webkit-scrollbar {
+    width: 10px;
 }
 
-.admin-title {
+/* Track (background) */
+::-webkit-scrollbar-track {
+    background: #1e2e2e;
+}
+
+/* Handle (the draggable part) */
+::-webkit-scrollbar-thumb {
+    background: #6b8e8e;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4a8080;
+}
+
+.admin-page .midsection {
+    display: block;
+    padding: 2rem 3rem;
+    grid-template-columns: none;
+}
+
+.admin-header {
     text-align: center;
     margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
 }
 
 .admin-stats {
     text-align: center;
     margin-bottom: 2rem;
-    font-size: 1.2rem;
+    background: rgba(74, 128, 128, 0.2);
+    border: 1px solid #4a8080;
+    border-radius: 12px;
+    padding: 1.5rem;
 }
 
-/* User cards */
-.admin-user-card {
+.admin-stats p {
+    font-size: 1.2rem;
+    color: #a0c4c4;
+}
+
+/* User Cards */
+.user-card {
     margin-bottom: 1.5rem;
 }
 
-.admin-user-card h2 {
+.user-card h2 {
     margin-bottom: 1rem;
-}
-
-/* Text styles */
-.admin-text {
     color: #e0e0e0;
+    font-size: 1.5rem;
 }
 
-.admin-mono {
+.user-info-row {
+    margin-bottom: 0.8rem;
+}
+
+.user-info-row label {
+    display: block;
+    color: #dfeff0;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+}
+
+.user-info-row p {
+    color: #e0e0e0;
+    margin: 0;
+}
+
+.encrypted-text {
     font-family: monospace;
-    color: #e0e0e0;
-}
-
-/* Empty state */
-.admin-empty {
-    text-align: center;
-}
-
-.page-title {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.admin-summary {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.2rem;
-}
-
-/* Cards */
-.admin-card {
-    margin-bottom: 1.5rem;
-}
-
-.reveal-card {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.username-title {
-    margin-bottom: 1rem;
-}
-
-/* Text helpers */
-.text-light {
-    color: #e0e0e0;
-}
-
-.text-muted {
     color: #6b8e8e;
 }
 
-.center-text {
+.reveal-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.empty-state {
     text-align: center;
+    padding: 3rem 2rem;
+    color: #8a9a9a;
 }
-
-.mono {
-    font-family: monospace;
-}
-
-/* Password highlight */
-.password-revealed {
-    color: #ff6b6b;
-    font-size: 1.3rem;
-    font-weight: bold;
-}
-
-/* Divider */
-.divider {
-    border-color: #4a8080;
-    margin: 1.5rem 0;
-}
-
-/* Actions */
-.center-actions {
-    justify-content: center;
-    margin-top: 2rem;
-}
-
