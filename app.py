@@ -30,9 +30,9 @@ def encrypt_password(password):
         return None
     
 def decrypt_password(encrypted_password):
-    """
-    Calls the C program to decrypt password
-    """
+    
+    #Calls the C program to decrypt password
+    
     try:
         # Run the decrypt C program
         process = subprocess.Popen(
@@ -59,6 +59,7 @@ app.secret_key = '12345'
 # Load the trained model and encoders
 def load_model():
     """Load the trained ML model and label encoders"""
+    
     with open('mental_health_model.pkl', 'rb') as f:
         model = pickle.load(f)
     

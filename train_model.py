@@ -74,15 +74,12 @@ print("Training model...")
 model = LogisticRegression(max_iter=1000, random_state=42)
 model.fit(X_train, y_train)
 
-# Check accuracy
+# Calculate accuracy (THIS MUST COME FIRST!)
 train_accuracy = model.score(X_train, y_train) * 100
 test_accuracy = model.score(X_test, y_test) * 100
 
-print(f"Training Accuracy: {train_accuracy:.2f}%")
-print(f"Testing Accuracy: {test_accuracy:.2f}%\n")
-
 # Save model and encoders
-print("Saving model...")
+print("\nSaving model...")
 with open('mental_health_model.pkl', 'wb') as f:
     pickle.dump(model, f)
 
